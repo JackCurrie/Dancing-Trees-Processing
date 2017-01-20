@@ -2,48 +2,84 @@
 //        Inspired by reading "Chaos: Making a New Science", listening to the music 
 //        of Kendrick Lamar, and seeing a cool visualization of a recursive tree moving
 //        to mouse stimulus, I want to make a recursive tree that moves smoothly 
-//        to audio stimulus
+//        to audio stimulus.
 //
-//    Credit where it's Due
-//      Based on the sketch "Recursive Tree" by Daniel Shiffman (shiffman.net)
-//      Your work is awesome.
-//    
+//     Fears which I cannot confirm or dismiss due to my current lack of knowledge of Processing
+//         - Addition of more trees may cause intolerably and unavoidably bad performance
+//         - Turning Recursive Tree into a class instead of just drawing a line and calling branch 
+//           will make it too expensive to maintain adequate performance levels
 //
-
 
 
 float theta;   
+
 
 void setup() {
   size(1280, 720);
 }
 
+
 void draw() {
+  
+  // Black background, white strokes, framerate
   background(0);
-  frameRate(30);
+  frameRate(20);
   stroke(255);
-  // Let's pick an angle 0 to 90 degrees based on the mouse position
+  
+  // Take in mouse's location on X axis, use it to begin recursive branching
   float a = (mouseX / (float) width) * 90f;
-  // Convert it to radians
   theta = radians(a);
-  // Start the tree from the bottom of the screen
   translate(width/2,height);
-  // Draw a line 120 pixels
+  
+  // Draw line and move to the end of it
   line(0,0,0,-120);
-  // Move to the end of that line
   translate(0,-120);
+  
   // Start the recursive branching!
   branch(120);
 
 }
 
-void branch(float h) {
-  // Each branch will be 2/3rds the size of the previous one
-  h *= 0.66;
+
+
+// Recursive Tree Class
+//
+// Description: Creates recursive tree going vertically from the bottom of the screen at a given X 
+//              location with a given length. Branches are created recursively from the point at the
+//              top of the initial vertical line
+//
+// Methods: Constructor (draw first line, call Branch)
+//          Branch      (create branches)
+//          
+// Data Members: None, due to the ephemeraltime of existence
+//
+// Special considerations: Because this is being rendered with a framerate specified in the
+//                         "draw" function, and now it is a class object, care must be taken to 
+//                         prevent memory leaks which could result. 
+//                       
+//                         Due to the fact that this is my first time using processing, more research 
+//                         needs to be done to determine exactly how the objects can be deallocated upon
+//                         frame change, and whether or not the constant samsara of recursive tree 
+//                         reincarnation will cause program slowdown. 
+//
+class recursiveTree{
+  public recursiveTree(float x, float length){
+    
+  }
   
-  // All recursive functions must have an exit condition!!!!
-  // Here, ours is when the length of the branch is 2 pixels or less
-  if (h > 2) {
+  private void branch(float h){
+    
+  }
+  
+}
+
+
+void branch(float h) {
+  
+  h *= 0.7;
+  
+  // Exit if branches become less than 2 pixels long
+  if (h > 5) {
     pushMatrix();    // Save the current state of transformation (i.e. where are we now)
     rotate(theta);   // Rotate by theta
     line(0, 0, 0, -h);  // Draw the branch
