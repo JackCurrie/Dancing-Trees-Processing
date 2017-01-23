@@ -76,10 +76,10 @@ class recursiveTree{
 
 void branch(float h) {
   
-  h *= 0.7;
+  h *= 0.69;
   
   // Exit if branches become less than 2 pixels long
-  if (h > 5) {
+  if (h > 2) {
     pushMatrix();    // Save the current state of transformation (i.e. where are we now)
     rotate(theta);   // Rotate by theta
     line(0, 0, 0, -h);  // Draw the branch
